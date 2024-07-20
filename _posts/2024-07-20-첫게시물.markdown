@@ -12,10 +12,10 @@ published: true
 
 잠자기
 
-'''python
+```python
 def sleep():
     print("쿨쿨")
-'''
+```
 
 # 마무리 인사
 
