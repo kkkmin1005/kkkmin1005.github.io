@@ -1,9 +1,9 @@
-name: Jekyll site CI
+name: Deploy Jekyll site to GitHub Pages
 
 on:
   push:
     branches:
-      - main
+      - master  # 또는 master 브랜치
 
 jobs:
   build:
@@ -11,10 +11,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Setup Ruby
+    - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.2.4'
+        ruby-version: '3.2.4'  # 사용하고 있는 Ruby 버전
     - name: Install dependencies
       run: |
         gem install bundler
@@ -26,3 +26,5 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./_site
+        publish_branch: gh-pages
+
