@@ -56,6 +56,3 @@ plugins:
 #   - vendor/ruby/
 
 future: true
-
-#yat theme
-theme: jekyll-theme-yat
