@@ -5,7 +5,7 @@ author: Kangmin Moon
 home:
   heading: "Affectionately"
   subheading: "Algorithm,AI,Web,App,Compiler,DataScience"
-  banner: "assets\banner.jpg"
+  banner: "assets\images\banners\banner.jpg"
 
 description: hi
 baseurl: "" # the subpath of your site, e.g. /blog
