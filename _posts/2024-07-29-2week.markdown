@@ -54,7 +54,7 @@ plt.xlabel('length')
 plt.ylabel('weight')
 plt.show()
 ```
-!['img1'](assets/072901.png)
+!['img1'](https://drive.google.com/file/d/1-zmBrxqHuMup46MM9PCVqYOmHtzTV8YZ/view?usp=drive_link)
 
 ### 머신러닝 모델 선정
 
