@@ -2,11 +2,10 @@ title: Kangmin's blog
 email: codemin1005@gmail.com
 author: Kangmin Moon
 
-default:
-  home:
-    heading: "Affectionately"
-    subheading: "Algorithm,AI,Web,App,Compiler,DataScience"
-    banner: "Your image url"
+home:
+  heading: "Affectionately"
+  subheading: "Algorithm,AI,Web,App,Compiler,DataScience"
+  banner: "Your image url"
 
 description: hi
 baseurl: "" # the subpath of your site, e.g. /blog
@@ -22,13 +21,6 @@ click_to_top:
     background_color: "#34323d"
     color: "#bbb"
 
-# Gitment comments
-gitment:
-  username: "Your GitHub username"
-  repo: "The repo to store comments"
-  client_id: "Your client ID"
-  client_secret: "Your client secret"
-  redirect_uri: "Your redirect url"   # If you use a custom domain name
 
 # Build settings
 remote_theme: "jeffreytse/jekyll-theme-yat"
