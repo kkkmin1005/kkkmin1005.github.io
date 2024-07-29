@@ -2,7 +2,7 @@
 layout: post
 title: "k-최근접 이웃을 활용한 머신러닝"
 date: 2024-07-29 17:44 +0900
-categories: DataScience, AI
+categories: AI
 published: true
 ---
 
@@ -54,7 +54,7 @@ plt.xlabel('length')
 plt.ylabel('weight')
 plt.show()
 ```
-!['img1'](https ://drive.google.com/uc?export=view&id=1-zmBrxqHuMup46MM9PCVqYOmHtzTV8YZ)
+!['img2'](/assets/072901.png)
 
 ### 머신러닝 모델 선정
 
