@@ -2,10 +2,11 @@ title: Kangmin's blog
 email: codemin1005@gmail.com
 author: Kangmin Moon
 
-home:
-  heading: "Affectionately"
-  subheading: "Algorithm,AI,Web,App,Compiler,DataScience"
-  banner: "Your image url"
+default:
+  home:
+    heading: "Affectionately"
+    subheading: "Algorithm,AI,Web,App,Compiler,DataScience"
+    banner: "Your image url"
 
 description: hi
 baseurl: "" # the subpath of your site, e.g. /blog
