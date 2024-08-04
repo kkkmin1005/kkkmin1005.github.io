@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "k"
+title: 회귀 알고리즘과 모델 규제
 date: 2024-08-04 21:46 +0900
 categories: AI
 published: true
