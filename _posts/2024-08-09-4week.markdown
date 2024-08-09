@@ -113,9 +113,9 @@ print(kn.classes_)
 
 하지만 로지스틱 회귀는 각 클래스의 확률을 예측해야하므로 시그모이드 함수를 적용합니다.  
 
-\[
-\sigma(z) = \frac{1}{1 + e^{-z}}
-\]
+<p>
+σ(z) = 1 / (1 + e<sup>-z</sup>)
+</p>
 
 !['img1'](/assets/080901.png)
 
@@ -258,15 +258,9 @@ print(lr.coef_.shape, lr.intercept_.shape)
 
 다중분류에서는 소프트맥스 함수를 이용해 z값을 확률로 변환시킵니다.  
 
-\[
-\sigma(z)_i = \frac{e^{z_i}}{\sum_{j=1}^{K} e^{z_j}}
-\]
-
-여기서,
-
-- \( \sigma(z)_i \)는 입력 \( z \)의 \( i \)번째 클래스에 대한 소프트맥스 함수의 출력 값
-- \( z_i \)는 입력 벡터 \( z \)의 \( i \)번째 요소
-- \( K \)는 가능한 클래스의 총 개수
+<p>
+σ(z)<sub>i</sub> = <sup>e<sup>zi</sup></sup> / Σ<sup>K</sup><sub>j=1</sub> e<sup>zj</sup>
+</p>
 
 다음은 z값을 소트프맥스 함수에 대입하여 나온 확률입니다.  
 
@@ -303,12 +297,128 @@ print(np.round(proba, decimals = 3))
 
 > 목차  
     1. 경사 하강법이란?  
+    2. 손실 함수란?
     2. 경사 하강법을 이용한 모델 학습  
 
 ### 경사 하강법이란?
 
 경사 하강법은 단어 그대로 경사를 따라서 내려가는 방법을 의미합니다.  
 
+자세한 의미는 함수의 값이 낮아지는 방향으로 각 독립변수들의 값을 변형시켜 함수가 최솟값을 갖도록 하는 독립변수를 탐색하는 방법입니다.  
+
+경사 하강법에도 방식에 따라 여러가지 종류가 존재합니다.  
+
+1. 확률적 경사 하강법  
+확률적 경사 하강법은 전체 샘플을 사용하지 않고 딱 하나의 샘플을 훈련 세트에서 랜덤하게 골라 가장 가파른 길을 찾습니다. 
+자세하게 설명하자면 랜덤으로 샘플을 하나씩 선정하여 탐색을 하는 과정을 반복합니다.  
+해당 탐색은 전체 샘플이 모두 사용될 때까지 반복됩니다.   
+
+2. 미니배치 경사 하강법  
+해당 방법은 무작위로 몇개의 샘플을 선책하여 탐색을 진행합니다.  
+
+3. 배치 경사 하강법  
+해당 방법은 한번의 탐색을 위해 전체 샘플을 사용합니다.  
+
+### 손실 함수란?  
+
+경사 하강법에서 함수의 값이 낮아지는 방향으로 탐색을 진행하는데 여기서 함수가 손실 함수입니다.  
+
+손실 함수는 머신러닝 모델이 예측한 값과 실제 값의 차이를 나타내는 함수입니다.  
+
+손실함수에는 대표적으로 로지스틱 손실 함수가 있습니다.  
+
+다음은 로지스틱 손실 함수에 대한 설명입니다.  
+
+<p>
+Log Loss = - (1/N) Σ<sub>i=1</sub><sup>N</sup> [ y<sub>i</sub> log(p<sub>i</sub>) + (1 - y<sub>i</sub>) log(1 - p<sub>i</sub>) ]
+</p>
+
+N은 전체 데이터의 수  
+y는 샘플의 실제 라벨(클래스)  
+p는 샘플에 대해 모델이 예측한 확률  
+
+### 경사 하강법을 이용한 모델 학습  
+
+```python
+# 경사 하강법을 사용한 분류 모델
+
+from sklearn.linear_model import SGDClassifier
+sc = SGDClassifier(loss = 'log_loss', max_iter = 10, random_state = 42)
+sc.fit(train_scaled, train_target)
+print(sc.score(train_scaled, train_target))
+print(sc.score(test_scaled, test_target))
+#----------------------------------------#
+0.773109243697479
+0.775
+```
+
+사이킷런의 SGDClassifier 객체를 통해 학습을 진행합니다.  
+
+> loss 파라미터란?  
+    손실함수를 의미하며 log_loss는 로지스틱 손실 함수를 의미합니다.  
+
+경사 하강법의 또 다른 특징은 점진적 학습이 가능하다는 것입니다.  
+10번의 학습으로는 과소적합 되었으므로 학습을 이어서 진행하도록 하겠습니다.  
+
+```python
+sc.partial_fit(train_scaled, train_target)
+print(sc.score(train_scaled, train_target))
+print(sc.score(test_scaled, test_target))
+#------------------------------------------#
+0.8151260504201681
+0.85
+```
+
+partial_fit 메서드를 이용해 학습을 이어서 진행시켜 정확도를 향상시켰습니다.  
+
+여기서 최적의 반복횟수(에포크)를 찾아서 모델의 정확도를 더 향상시켜 보겠습니다.  
+
+> 에포크와 과대/과소적합  
+    에포크의 횟수가 적다면 모델이 훈련 세트를 덜 학습하므로 과소적합 발생 가능  
+    에포크의 횟수가 많다면 모델이 훈련 세트를 과도하게 학습하여 과대적합 발생 가능  
+
+따라서 에포크값에 변화를 주며 스코어 그래프를 그려 최적의 에포크를 찾는 과정을 이용합니다.  
+
+```python
+sc = SGDClassifier(loss = 'log_loss',random_state = 42)
+train_score = []
+test_score = []
+classes = np.unique(train_target)
+
+for _ in range(0, 300):
+  sc.partial_fit(train_scaled, train_target, classes = classes)
+  train_score.append(sc.score(train_scaled, train_target))
+  test_score.append(sc.score(test_scaled, test_target))
+
+plt.plot(train_score)
+plt.plot(test_score)
+plt.show()
+```
+
+!['img2'](/assets/080902.png)
+
+해당 그래프를 보면 에포크가 100일때 최적임을 알 수 있습니다.  
+
+```python
+sc = SGDClassifier(loss = 'log_loss',max_iter = 100, tol = None, random_state = 42)
+sc.fit(train_scaled, train_target)
+print(sc.score(train_scaled, train_target))
+print(sc.score(test_scaled, test_target))
+#---------------------------------------#
+0.957983193277311
+0.925
+```
+
+에포크 값을 100으로 설정하고 학습을 진행하니 높은 정확도가 나옴을 볼 수 있습니다.  
+
+> tol 파라미터란?  
+    학습을 멈추지 않고 max_iter 값까지 자동으로 반복하도록 설정
+
+이렇게 로지스틱 손실 함수를 통한 경사 하강법을 진행하였습니다.  
+
+로지스틱 손실 함수뿐만 아니라 힌지 손실등을 사용하여도 훈련을 진행할 수 있습니다.  
+
+이상으로 포스팅을 마치겠습니다.
 
 
 
