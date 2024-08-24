@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 트리 알고리즘
-date: 2024-08-09--19 17:14 +0900
+date: 2024-08-19 17:14 +0900
 categories: AI
 published: true
 ---
